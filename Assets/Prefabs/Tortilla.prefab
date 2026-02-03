@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5181238363072330871}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tortilla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
