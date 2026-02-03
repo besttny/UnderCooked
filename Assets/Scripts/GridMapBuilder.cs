@@ -27,6 +27,7 @@ public class GridMapBuilder : MonoBehaviour
 
     // เก็บ list เผื่อเอาไปใช้ spawn วัตถุดิบ/อุปกรณ์
     public List<Transform> counterSpawnPoints = new List<Transform>();
+    public Tile[,] grid;
 
     [ContextMenu("Build Map")]
     public void BuildMap()
@@ -65,6 +66,8 @@ public class GridMapBuilder : MonoBehaviour
                         counterParent
                     );
                     counter.name = $"Counter_{x}_{z}";
+                    counter.layer = LayerMask.NameToLayer("Interactable");
+
 
                     if (createSpawnPointsOnCounter)
                     {

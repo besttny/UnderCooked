@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.15f;
     public float dashCooldown = 1f;
     public float rotationSpeed = 10f; // New: smoother rotation
+    public float interactDistance = 1.5f;
+    public LayerMask interactMask;
+    public GameObject holdItem;
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float dashEndTime;
     private float lastDashTime;
     private Vector3 dashDirection; // New: store dash direction
+    
 
     void Awake()
     {
@@ -24,7 +28,7 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
 
         // Optional: Adjust drag for smoother stopping
-        rb.drag = 0f;
+        rb.linearDamping = 0f;
     }
 
     void FixedUpdate()
@@ -35,19 +39,19 @@ public class PlayerController : MonoBehaviour
             {
                 isDashing = false;
                 // Reset velocity after dash for cleaner transition
-                rb.velocity = new Vector3(0, rb.velocity.y, 0);
+                rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             }
             else
             {
                 // Maintain dash velocity
-                rb.velocity = new Vector3(dashDirection.x * dashPower, rb.velocity.y, dashDirection.z * dashPower);
+                rb.linearVelocity = new Vector3(dashDirection.x * dashPower, rb.linearVelocity.y, dashDirection.z * dashPower);
             }
             return;
         }
 
         // Normal movement
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized; // Normalize for consistent speed
-        rb.velocity = new Vector3(move.x * moveSpeed, rb.velocity.y, move.z * moveSpeed);
+        rb.linearVelocity = new Vector3(move.x * moveSpeed, rb.linearVelocity.y, move.z * moveSpeed);
 
         // Smooth rotation
         if (move != Vector3.zero)
@@ -70,16 +74,50 @@ public class PlayerController : MonoBehaviour
         if (isDashing) return; // Prevent dash overlap
 
         dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
-        rb.velocity = dashDirection * dashPower;
+        rb.linearVelocity = dashDirection * dashPower;
 
         isDashing = true;
         dashEndTime = Time.time + dashDuration;
         lastDashTime = Time.time;
+    }
+    public bool HasItem()
+    {
+        return holdItem != null;
+    }
+    public void PickupItem(GameObject item)
+    {
+        holdItem = item;
+
+        item.transform.SetParent(transform);
+        item.transform.localPosition = new Vector3(0, 1f, 0.5f);
+    }
+    public GameObject TakeItem()
+    {
+        GameObject item = holdItem;
+        holdItem = null;
+        item.transform.SetParent(null);
+        return item;
     }
 
     public void OnInteract(InputValue value)
     {
         if (value.isPressed)
             Debug.Log("Interact!");
+        if (!value.isPressed) return;
+
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        Vector3 dir = transform.forward;
+
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, interactDistance, interactMask))
+        {
+            IInteractable interactable =
+                hit.collider.GetComponent<IInteractable>();
+
+            if (interactable != null)
+            {
+                interactable.Interact(this);
+            }
+        }
     }
+    
 }
