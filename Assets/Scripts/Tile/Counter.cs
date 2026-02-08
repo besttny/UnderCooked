@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class Counter : Tile, IInteractable
 {
-    public GameObject holdItemPrefab;
-    public Transform spawnPoint;
-    private GameObject currentItem;
+    
+    public GameObject currentItem; //holditem
     public override void Init(int gridX, int gridZ)
     {
         base.Init(gridX, gridZ);
@@ -12,20 +11,20 @@ public class Counter : Tile, IInteractable
     }
     public void TrySpawnItem()
     {
-        if (holdItemPrefab == null) return;
+        /*if (holdItemPrefab == null) return;
         if (currentItem != null) return;
 
         Vector3 pos = spawnPoint != null
             ? spawnPoint.position
             : transform.position + Vector3.up * 0.6f;
 
-        currentItem = Instantiate(holdItemPrefab, pos, Quaternion.identity, transform);
+        currentItem = Instantiate(holdItemPrefab, pos, Quaternion.identity, transform);*/
     }
     public bool HasItem()
     {
         return currentItem != null;
     }
-    public GameObject TakeItem()
+    public GameObject TakeItem() // remove item from counter
     {
         if (currentItem == null) return null;
 
@@ -35,13 +34,19 @@ public class Counter : Tile, IInteractable
 
         return item;
     }
-    public void PlaceItem(GameObject item)
+    public void PlaceItem(GameObject item) // place item on counter
     {
         if (currentItem != null) return;
 
         currentItem = item;
-        item.transform.SetParent(transform);
-        item.transform.localPosition = Vector3.up * 0.6f;
+        //item.transform.SetParent(transform);
+        item.transform.position = transform.position + Vector3.up * 0.6f;
+
+        Item itemComp = item.GetComponent<Item>();
+        if (itemComp != null)
+        {
+            itemComp.SetHeld(false);
+        }
     }
 
     public void Interact(PlayerController player)
@@ -62,10 +67,6 @@ public class Counter : Tile, IInteractable
             {
                 GameObject item = TakeItem();
                 player.PickupItem(item);
-            }
-            else
-            {
-                TrySpawnItem();
             }
         }
     }

@@ -128,5 +128,4 @@ MonoBehaviour:
   x: 0
   z: 0
   walkable: 0
-  holdItemPrefab: {fileID: 5404725255371861123, guid: a8c07bb16907ea8429a5c6857a80b0d5, type: 3}
-  spawnPoint: {fileID: 0}
+  currentItem: {fileID: 0}

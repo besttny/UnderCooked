@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7640388144015119785}
   - component: {fileID: 5793660194883506279}
   - component: {fileID: 7177789551090597270}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pork-fat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4579697609507399322}
   - component: {fileID: 3011734995342053824}
   - component: {fileID: 4030563075797094290}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pork-meat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4320058316268371439}
-  m_Layer: 3
+  - component: {fileID: 4660651775426336249}
+  m_Layer: 6
   m_Name: Pork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,6 +259,21 @@ Transform:
   - {fileID: 3956070507054727324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4660651775426336249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5301659753784147471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46081f0aebb30349b58f79dd689401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemName: 
+  cols: []
+  isHeld: 0
 --- !u!1 &5667101032197798297
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +286,7 @@ GameObject:
   - component: {fileID: 7328171785752654519}
   - component: {fileID: 5045113248657600995}
   - component: {fileID: 1130784608527587287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pork-fat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

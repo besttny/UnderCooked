@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public float interactDistance = 1.5f;
     public LayerMask interactMask;
     public GameObject holdItem;
+    public Transform ingredientRoot;
+    public float ItemOffsetY = 0.5f;
+    public float dropDistance = 0.3f;
 
     private Vector2 moveInput;
     private Rigidbody rb;
@@ -29,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
         // Optional: Adjust drag for smoother stopping
         rb.linearDamping = 0f;
+
+        ingredientRoot = GameObject.Find("__Generated/Ingredients")?.transform;
+
     }
 
     void FixedUpdate()
@@ -84,40 +90,117 @@ public class PlayerController : MonoBehaviour
     {
         return holdItem != null;
     }
-    public void PickupItem(GameObject item)
+    public void PickupItem(GameObject item) // place item on player
     {
         holdItem = item;
 
         item.transform.SetParent(transform);
-        item.transform.localPosition = new Vector3(0, 1f, 0.5f);
+        item.transform.localPosition = new Vector3(0, ItemOffsetY, 0.5f);
+
+        Item itemComp = item.GetComponent<Item>();
+        if (itemComp != null)
+        {
+            itemComp.SetHeld(true);
+        }
     }
-    public GameObject TakeItem()
+    public GameObject TakeItem() // remove item from player
     {
+        if (holdItem == null) return null;
+
         GameObject item = holdItem;
         holdItem = null;
-        item.transform.SetParent(null);
+
+        if (ingredientRoot != null)
+            item.transform.SetParent(ingredientRoot);
+        else
+            item.transform.SetParent(null);
+
         return item;
     }
 
     public void OnInteract(InputValue value)
     {
-        if (value.isPressed)
-            Debug.Log("Interact!");
         if (!value.isPressed) return;
 
-        Vector3 origin = transform.position + Vector3.up * 0.5f;
         Vector3 dir = transform.forward;
+        Vector3 origin = transform.position + Vector3.up * 0f;
 
-        if (Physics.Raycast(origin, dir, out RaycastHit hit, interactDistance, interactMask))
+        Collider[] nearHits = Physics.OverlapSphere( // nearby check
+            origin + dir * 0.4f,
+            0.6f,
+            interactMask,
+            QueryTriggerInteraction.Ignore
+        );
+
+        IInteractable closest = null;
+        float bestDist = float.MaxValue;
+
+        foreach (var col in nearHits)
         {
-            IInteractable interactable =
-                hit.collider.GetComponent<IInteractable>();
+            var interactable = col.GetComponentInParent<IInteractable>();
+            if (interactable == null) continue;
 
-            if (interactable != null)
+            float d = Vector3.Distance(origin, col.transform.position);
+            if (d < bestDist)
             {
-                interactable.Interact(this);
+                bestDist = d;
+                closest = interactable;
             }
         }
+
+        if (closest != null)
+        {
+            closest.Interact(this);
+            return;
+        }
+
+        if (Physics.SphereCast( // distance check
+                origin,
+                0.5f,
+                dir,
+                out RaycastHit hit,
+                interactDistance,
+                interactMask,
+                QueryTriggerInteraction.Ignore))
+        {
+            var interactable = hit.collider.GetComponentInParent<IInteractable>();
+            if (interactable != null)
+                interactable.Interact(this);
+        }
     }
-    
+
+    public void DropItem()
+    {
+        if (holdItem == null) return;
+
+        GameObject item = holdItem;
+        holdItem = null;
+
+        item.transform.SetParent(
+            ingredientRoot != null ? ingredientRoot : null
+        );
+
+        Vector3 dropPos =
+            transform.position +
+            transform.forward * dropDistance;
+        dropPos.y = 0.1f; 
+
+
+        item.transform.position = dropPos;
+
+        // re-enable colliders
+        Item itemComp = item.GetComponent<Item>();
+        if (itemComp != null)
+        {
+            itemComp.SetHeld(false);
+        }
+    }
+
+    public void OnDrop(InputValue value)
+    {
+        if (!value.isPressed) return;
+        DropItem();
+    }
+
+
 }

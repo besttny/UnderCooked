@@ -108,6 +108,7 @@ public class GridMapBuilder : MonoBehaviour
             if (ing.spawnedInstances.Count < maxPerIngredient)
                 candidates.Add(ing);
         }
+        
         if (candidates.Count == 0) return;
 
         Ingredient target = candidates[Random.Range(0, candidates.Count)];
@@ -115,11 +116,17 @@ public class GridMapBuilder : MonoBehaviour
         Transform point = GetEmptySpawnPoint();
         if (point == null) return;
 
+        CounterSpawnPoint csp = point.GetComponent<CounterSpawnPoint>();
+        if (csp == null || csp.counter == null) return;
+        if (csp.counter.HasItem()) return;
+        
         Vector3 spawnPos = point.position + Vector3.up * spawnHeightOffset;
         GameObject newItem = Instantiate(target.prefab, spawnPos, Quaternion.identity);
 
         // ✅ บังคับให้ของอยู่ใต้ LevelBuilder/__Generated/Ingredients เสมอ
         newItem.transform.SetParent(GetOrCreateIngredientsRoot());
+
+        csp.counter.PlaceItem(newItem);
 
         target.spawnedInstances.Add(newItem);
         pointToItem[point] = newItem;
@@ -129,6 +136,7 @@ public class GridMapBuilder : MonoBehaviour
     {
         // เกิดบนเคาน์เตอร์รอบขอบเป็นหลัก
         List<Transform> source = (counterSpawnPoints.Count > 0) ? counterSpawnPoints : floorSpawnPoints;
+        
         if (source.Count == 0) return null;
 
         // สุ่มลำดับ
@@ -142,8 +150,8 @@ public class GridMapBuilder : MonoBehaviour
         foreach (var p in shuffled)
         {
             // จุดนี้มีของอยู่แล้วไหม
+            
             if (pointToItem.ContainsKey(p) && pointToItem[p] != null) continue;
-
             // กันเกิดชิดเกิน (เช็คเฉพาะ item layer)
             Collider[] hits = Physics.OverlapSphere(p.position, minItemSpacing, itemLayerMask);
             if (hits.Length == 0) return p;
@@ -241,6 +249,11 @@ public class GridMapBuilder : MonoBehaviour
                     );
                     counter.name = $"Counter_{x}_{z}";
                     counter.layer = LayerMask.NameToLayer("Interactable");
+                    Counter counterComp = counter.GetComponent<Counter>();
+                    if (counterComp != null)
+                    {
+                        counterComp.Init(x, z);
+                    }
 
 
                     // Spawn point บนหน้าเคาน์เตอร์จริง
@@ -248,6 +261,10 @@ public class GridMapBuilder : MonoBehaviour
                     {
                         var sp = new GameObject($"SP_{x}_{z}").transform;
                         sp.SetParent(genRoot);
+
+                        var sp_tran = sp.transform;
+                        CounterSpawnPoint csp = sp_tran.gameObject.AddComponent<CounterSpawnPoint>();
+                        csp.counter = counter.GetComponent<Counter>();
 
                         float topY = counter.transform.position.y + 0.5f;
                         var col = counter.GetComponent<Collider>();
