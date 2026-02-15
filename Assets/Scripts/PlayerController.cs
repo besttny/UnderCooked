@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     private float dashEndTime;
     private float lastDashTime;
     private Vector3 dashDirection; // New: store dash direction
+    private PlayerStatus status;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        status = GetComponent<PlayerStatus>();
 
         // Important: Lock rotation so physics doesn't interfere
         rb.freezeRotation = true;
@@ -29,6 +31,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (status != null && status.IsStunned)
+        {
+            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+            return;
+        }
         if (isDashing)
         {
             if (Time.time >= dashEndTime)
@@ -57,17 +64,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue value)
+    public void OnMove(Vector2 v)
     {
-        moveInput = value.Get<Vector2>();
+        moveInput = v;
     }
 
-    public void OnDash(InputValue value)
+    public void OnDash()
     {
-        if (!value.isPressed) return;
+        // จำลองเหมือนกดปุ่ม
         if (Time.time < lastDashTime + dashCooldown) return;
         if (moveInput == Vector2.zero) return;
-        if (isDashing) return; // Prevent dash overlap
+        if (isDashing) return;
 
         dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
         rb.linearVelocity = dashDirection * dashPower;
@@ -77,9 +84,8 @@ public class PlayerController : MonoBehaviour
         lastDashTime = Time.time;
     }
 
-    public void OnInteract(InputValue value)
+    public void OnInteract()
     {
-        if (value.isPressed)
-            Debug.Log("Interact!");
+        Debug.Log($"{name} Interact!");
     }
 }

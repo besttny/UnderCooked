@@ -174,27 +174,10 @@ public class GridMapBuilder : MonoBehaviour
 
     void ClearGenerated(Transform root)
     {
-        // ลบลูกทั้งหมดใต้ __Generated
         for (int i = root.childCount - 1; i >= 0; i--)
         {
             if (Application.isPlaying) Destroy(root.GetChild(i).gameObject);
             else DestroyImmediate(root.GetChild(i).gameObject);
-        }
-
-        // ล้างของเก่าที่เคยหลุด root (Counter_/SP_/Floor_)
-        var all = FindObjectsOfType<Transform>(true);
-        foreach (var t in all)
-        {
-            if (t == null) continue;
-            if (!t.name.StartsWith("Counter_") &&
-                !t.name.StartsWith("SP_") &&
-                !t.name.StartsWith("Floor_")) continue;
-
-            if (!t.IsChildOf(transform))
-            {
-                if (Application.isPlaying) Destroy(t.gameObject);
-                else DestroyImmediate(t.gameObject);
-            }
         }
     }
 
