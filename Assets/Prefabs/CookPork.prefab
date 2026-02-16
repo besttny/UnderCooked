@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5793660194883506279}
   - component: {fileID: 7177789551090597270}
   m_Layer: 0
-  m_Name: Pork-fat
+  m_Name: Pork-fat-cook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea250bc7528137144a45a96d2be39d99, type: 2}
+  - {fileID: 2100000, guid: 526eba82d299edb479a7a282c4912a30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3011734995342053824}
   - component: {fileID: 4030563075797094290}
   m_Layer: 0
-  m_Name: Pork-meat
+  m_Name: Pork-meat-cook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3ec42e27d4e641b44956b41ec2873923, type: 2}
+  - {fileID: 2100000, guid: fa96ef8d7373dc64fab34d1b73eb778a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -237,10 +237,9 @@ GameObject:
   - component: {fileID: 4320058316268371439}
   - component: {fileID: -6205903459478911854}
   - component: {fileID: 6120392073331571743}
-  - component: {fileID: 9019035172826895512}
-  - component: {fileID: -59038987478253793}
+  - component: {fileID: 1828039409585257398}
   m_Layer: 3
-  m_Name: Pork
+  m_Name: CookPork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,28 +289,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5301659753784147471}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f622fb0f6cb01874b8d56507a14048c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Choppable
   choppedResultPrefab: {fileID: 5301659753784147471, guid: 6ea9d0e93e308d04f98e1be820b8775f, type: 3}
   destroyOriginal: 1
---- !u!114 &9019035172826895512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5301659753784147471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc4f711522f6e848881f68fff6e4672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Cookable
-  cookedResultPrefab: {fileID: 5301659753784147471, guid: ad22344bde75fd042b2bb92aab535260, type: 3}
-  cookTime: 10
---- !u!114 &-59038987478253793
+--- !u!114 &1828039409585257398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,8 +308,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d408eb3c638199d469d0263ed41fdf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
-  state: 00000000
-  canPlate: 0
+  state: 02000000
+  canPlate: 1
 --- !u!1 &5667101032197798297
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +323,7 @@ GameObject:
   - component: {fileID: 5045113248657600995}
   - component: {fileID: 1130784608527587287}
   m_Layer: 0
-  m_Name: Pork-fat
+  m_Name: Pork-fat-cook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,7 +377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea250bc7528137144a45a96d2be39d99, type: 2}
+  - {fileID: 2100000, guid: 526eba82d299edb479a7a282c4912a30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

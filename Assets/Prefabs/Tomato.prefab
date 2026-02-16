@@ -235,6 +235,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5776259781748876220}
   - component: {fileID: 1517029009199754782}
+  - component: {fileID: 3757811063838698764}
+  - component: {fileID: -6116355623303241523}
   m_Layer: 3
   m_Name: Tomato
   m_TagString: Untagged
@@ -279,3 +281,31 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3757811063838698764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817174658225147579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f622fb0f6cb01874b8d56507a14048c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Choppable
+  choppedResultPrefab: {fileID: 8817174658225147579, guid: d8fc775d783d48f4fb7bd07ecb921613, type: 3}
+  destroyOriginal: 1
+--- !u!114 &-6116355623303241523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817174658225147579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d408eb3c638199d469d0263ed41fdf21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredient
+  state: 00000000
+  canPlate: 0

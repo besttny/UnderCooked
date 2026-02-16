@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float dashDuration = 0.15f;
     public float dashCooldown = 1f;
     public float rotationSpeed = 10f; // New: smoother rotation
+    public bool IsMoving => moveInput.sqrMagnitude > 0.01f; // check if player is moving
 
     private Vector2 moveInput;
     private Rigidbody rb;

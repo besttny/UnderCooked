@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UseStation",
+                    "type": "Button",
+                    "id": "42d00456-157d-41c2-aaaf-d0cdf24427c5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -131,6 +140,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b7300528-02b5-4ce6-a8f9-8de0548c7671",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseStation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -169,6 +189,15 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "99d57f3f-6b8d-44c1-9f1a-22d29be05a10",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseStation",
+                    "type": "Button",
+                    "id": "a0803223-4442-4dbe-a9bf-d14529b49de6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -261,6 +290,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d5be3fd-67a2-4e97-9425-4aedcd5bd7c5",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseStation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

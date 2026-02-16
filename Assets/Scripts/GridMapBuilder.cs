@@ -37,12 +37,33 @@ public class GridMapBuilder : MonoBehaviour
     public float spawnHeightOffset = 0.05f;
     public LayerMask itemLayerMask; // ตั้งเป็น Layer "Item" ใน Inspector
 
+    [Header("Fixed Workstations")]
+    public List<WorkstationTile> workstationTiles;
+
+    [Header("Workstation Types")]
+    public List<WorkstationType> workstationTypes = new List<WorkstationType>();
+
+    [Header("Counter Detection")]
+    public LayerMask counterLayerMask;
+
     [System.Serializable]
     public class Ingredient
     {
         public string name;
         public GameObject prefab;
         [HideInInspector] public List<GameObject> spawnedInstances = new List<GameObject>();
+    }
+    [System.Serializable]
+    public class WorkstationType
+    {
+        public string name;
+        public GameObject prefab;
+    }
+    [System.Serializable]
+    public class WorkstationTile
+    {
+        public Vector2Int pos;
+        public int typeIndex;   // index into workstationTypes list
     }
 
     // spawn points
@@ -61,7 +82,7 @@ public class GridMapBuilder : MonoBehaviour
         // spawn ทันที 1 ครั้ง
         CleanupSpawnedLists();
         TrySpawnRandomIngredient();
-
+        
         // spawn ตามเวลา
         StartCoroutine(SpawnRoutine());
     }
@@ -115,14 +136,46 @@ public class GridMapBuilder : MonoBehaviour
         Transform point = GetEmptySpawnPoint();
         if (point == null) return;
 
-        Vector3 spawnPos = point.position + Vector3.up * spawnHeightOffset;
-        GameObject newItem = Instantiate(target.prefab, spawnPos, Quaternion.identity);
+        //Vector3 spawnPos = point.position + Vector3.up * spawnHeightOffset;
+        //GameObject newItem = Instantiate(target.prefab, spawnPos, Quaternion.identity);
 
         // ✅ บังคับให้ของอยู่ใต้ LevelBuilder/__Generated/Ingredients เสมอ
-        newItem.transform.SetParent(GetOrCreateIngredientsRoot());
+        //newItem.transform.SetParent(GetOrCreateIngredientsRoot());
+        Transform counter = FindCounterAtPoint(point.position);
+
+        GameObject newItem = Instantiate(target.prefab);
+
+        if (counter != null)
+        {
+            // parent to counter (same as player placement)
+            newItem.transform.SetParent(counter);
+
+            var col = counter.GetComponent<Collider>();
+            float topY = col != null ? col.bounds.max.y : counter.position.y;
+
+            newItem.transform.position = new Vector3(
+                counter.position.x,
+                topY + spawnHeightOffset,
+                counter.position.z
+            );
+        }
+        else
+        {
+            TrySpawnRandomIngredient(); // if no counter, try again
+            return; 
+            //newItem.transform.SetParent(GetOrCreateIngredientsRoot());
+        }
 
         target.spawnedInstances.Add(newItem);
         pointToItem[point] = newItem;
+    }
+
+
+    Transform FindCounterAtPoint(Vector3 pos)
+    {
+        Collider[] hits = Physics.OverlapSphere(pos, 0.3f, counterLayerMask);
+        if (hits.Length == 0) return null;
+        return hits[0].transform;
     }
 
     Transform GetEmptySpawnPoint()
@@ -214,15 +267,34 @@ public class GridMapBuilder : MonoBehaviour
                 }
 
                 // Counter (border)
-                if (isBorder && counterPrefab != null)
+                if (isBorder)
                 {
+                    GameObject prefab = counterPrefab;
+
+                    // check if this tile is a workstation tile
+                    foreach (var wt in workstationTiles)
+                    {
+                        if (wt.pos.x == x && wt.pos.y == z)
+                        {
+                            if (wt.typeIndex >= 0 &&
+                                wt.typeIndex < workstationTypes.Count &&
+                                workstationTypes[wt.typeIndex].prefab != null)
+                            {
+                                prefab = workstationTypes[wt.typeIndex].prefab;
+                            }
+                            break;
+                        }
+                    }
+
+                    if (prefab == null) continue;
+
                     var counter = Instantiate(
-                        counterPrefab,
+                        prefab,
                         new Vector3(basePos.x, counterY, basePos.z),
                         Quaternion.identity,
                         genRoot
                     );
-                    counter.name = $"Counter_{x}_{z}";
+                    counter.name = prefab == counterPrefab ? $"Counter_{x}_{z}" : prefab.name + $"_{x}_{z}";
 
                     // Spawn point บนหน้าเคาน์เตอร์จริง
                     if (createSpawnPointsOnCounter)

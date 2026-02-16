@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 978471857577429684}
   - component: {fileID: 8728065467441165291}
   - component: {fileID: -3390444108425293248}
+  - component: {fileID: 1871938032085419943}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -204,10 +205,26 @@ MonoBehaviour:
     m_Bits: 8
   counterLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   placeHeightOffset: 0.05
   dropForward: 0.8
   dropUp: 0.25
+--- !u!114 &1871938032085419943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379789507939124930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc307fe8b214cd458e20a250c638a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStationUse
+  useRadius: 1.5
+  stationLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &2607034334931849729
 GameObject:
   m_ObjectHideFlags: 0

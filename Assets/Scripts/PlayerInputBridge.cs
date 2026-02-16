@@ -8,7 +8,7 @@ public class PlayerInputBridge : MonoBehaviour
 
     private PlayerControls controls;
     private InputActionMap map;
-    private InputAction move, dash, interact, attack;
+    private InputAction move, dash, interact, attack, useStation;
 
     void Awake()
     {
@@ -45,6 +45,8 @@ public class PlayerInputBridge : MonoBehaviour
         dash = map.FindAction("Dash", true);
         interact = map.FindAction("Interact", true);
         attack = map.FindAction("Attack", true);
+        useStation = map.FindAction("UseStation", true);
+
 
         // ✅ เปลี่ยนชื่อ handler กันชนกับ SendMessage("OnMove", Vector2)
         move.performed += HandleMove;
@@ -57,7 +59,7 @@ public class PlayerInputBridge : MonoBehaviour
             SendMessage("OnInteract", SendMessageOptions.DontRequireReceiver);
         };
         attack.performed += _ => SendMessage("OnAttackPressed", SendMessageOptions.DontRequireReceiver);
-
+        useStation.performed += _ => SendMessage("OnUseStation", SendMessageOptions.DontRequireReceiver);
         map.Enable();
     }
 

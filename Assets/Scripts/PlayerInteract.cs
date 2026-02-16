@@ -65,7 +65,7 @@ public class PlayerInteract : MonoBehaviour
         }
 
         if (best == null) return;
-
+        
         // จับของขึ้นมือ
         combat.heldItem = best;
 
@@ -99,19 +99,105 @@ public class PlayerInteract : MonoBehaviour
 
         if (bestCol != null)
         {
-            // วางบนเคาน์เตอร์
-            float topY = bestCol.bounds.max.y;
-            Vector3 placePos = new Vector3(bestCol.bounds.center.x, topY + placeHeightOffset, bestCol.bounds.center.z);
+            var plate = bestCol.GetComponentInChildren<Plate>();
+            if (plate != null)
+            {
+                // put pan content on plate:
+                var heldpan = item.GetComponent<Pan>();
+                if (heldpan != null)
+                {
+                    GameObject takenItem = heldpan.TakeItem();
 
-            item.transform.SetParent(bestCol.transform);
-            item.transform.position = placePos;
+                    if (takenItem != null && plate.TryAddIngredient(takenItem))
+                    {
+                        Debug.Log("Moved cooked item from pan to plate");
+                    }
+                    else
+                    {
+                        Debug.Log("Pan item cannot go on plate");
+                    }
 
-            SetItemPhysics(item, carried: false, placedOnCounter: true);
+                    return;
+                }
+                //add ingrediend on plate:
+                if (plate.TryAddIngredient(item))
+                {
+                    combat.heldItem = null;
+                    Debug.Log("Added ingredient to plate");
+                }
+                else
+                {
+                    Debug.Log("Cannot add ingredient to plate");
+                }
 
-            combat.heldItem = null;
-            return;
+                return;
+            }
+
+            var pan = bestCol.GetComponentInChildren<Pan>();
+            Debug.Log("Found pan: " + (pan != null));
+
+            if (pan != null)
+            {
+                // holding ingredient → try insert
+                if (combat.heldItem != null)
+                {
+                    if (pan.TryInsert(combat.heldItem))
+                    {
+                        combat.heldItem = null;
+
+                        return;
+                    }
+                }
+                Debug.Log("Cannot place on pan");
+                return;
+            }
+            else
+            {   //check is counter is occupied by other item
+                bool occupied = false;
+
+                foreach (Transform child in bestCol.transform)
+                {
+                    int bit = 1 << child.gameObject.layer;
+                    if ((itemLayer.value & bit) == 0)
+                        continue;
+
+                    occupied = true;
+                    Debug.Log("Counter occupied by " + child.name);
+                    break;
+                }
+
+                if (occupied)
+                {
+                    Debug.Log("Counter occupied — cannot place.");
+                    return;
+                }
+                // place in place point of workstation if possible 
+                var ws = bestCol.GetComponentInParent<Workstation>(); 
+                if (ws != null) 
+                { 
+                    Transform target = ws.GetPlacePoint();
+                    item.transform.SetParent(target);
+                    item.transform.position = target.position; 
+                    item.transform.rotation = Quaternion.identity; 
+                    SetItemPhysics(item, carried: false, placedOnCounter: true); 
+                    combat.heldItem = null; 
+                    return;
+                }
+
+                // วางบนเคาน์เตอร์ 
+                float topY = bestCol.bounds.max.y; 
+                Vector3 placePos = new Vector3(bestCol.bounds.center.x, topY + placeHeightOffset, bestCol.bounds.center.z); 
+
+                item.transform.SetParent(bestCol.transform); 
+                item.transform.position = placePos; 
+                item.transform.rotation = Quaternion.identity; 
+
+                SetItemPhysics(item, carried: false, placedOnCounter: true); 
+
+                combat.heldItem = null; 
+                return; 
+            }
         }
-
         // ไม่มีเคาน์เตอร์ใกล้ ๆ -> หล่นลงพื้นด้านหน้า
         item.transform.SetParent(null);
         item.transform.position = transform.position + transform.forward * dropForward + Vector3.up * dropUp;
@@ -124,8 +210,10 @@ public class PlayerInteract : MonoBehaviour
     void SetItemPhysics(GameObject item, bool carried, bool placedOnCounter = false)
     {
         // colliders: ตอนถือ ปิด, ตอนวาง/หล่น เปิด (เพื่อให้หยิบใหม่ได้)
-        foreach (var col in item.GetComponentsInChildren<Collider>())
+        foreach (var col in item.GetComponents<Collider>())
+        {
             col.enabled = !carried;
+        }
 
         var rb = item.GetComponent<Rigidbody>();
         if (rb == null) return;
