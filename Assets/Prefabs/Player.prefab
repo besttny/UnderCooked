@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 8728065467441165291}
   - component: {fileID: -3390444108425293248}
   - component: {fileID: 1871938032085419943}
+  - component: {fileID: 5987079676419900845}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -137,8 +138,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5642271, y: 1, z: 1.0457311}
-  m_Center: {x: -0.00003862381, y: 0, z: 0.011634082}
+  m_Size: {x: 0.5642271, y: 1.0282807, z: 0.6711193}
+  m_Center: {x: -0.00003862381, y: -0.00000011920929, z: 0.04491879}
 --- !u!114 &4650957543568597051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,16 +200,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   holdPoint: {fileID: 4446488431799782767}
-  pickupRadius: 2
+  interactRadius: 2.5
   itemLayer:
     serializedVersion: 2
     m_Bits: 8
   counterLayer:
     serializedVersion: 2
     m_Bits: 384
-  placeHeightOffset: 0.05
   dropForward: 0.8
   dropUp: 0.25
+  placeHeightOffset: 0.05
 --- !u!114 &1871938032085419943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +226,20 @@ MonoBehaviour:
   stationLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &5987079676419900845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379789507939124930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 290f1918bdcbc6f4e94464935ae2aa16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScore
+  score: 0
+  scoreText: {fileID: 0}
 --- !u!1 &2607034334931849729
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,13 +267,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2607034334931849729}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -0.24, y: -0.26, z: -0.3}
+  m_LocalRotation: {x: 0.2087012, y: -0.24623305, z: -0.7063535, w: 0.62998253}
+  m_LocalPosition: {x: -0.17599992, y: -0.194, z: -0.078000024}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7335227193236201853}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.87, y: -37.392, z: -94.893}
 --- !u!33 &8718418857064678086
 MeshFilter:
   m_ObjectHideFlags: 0

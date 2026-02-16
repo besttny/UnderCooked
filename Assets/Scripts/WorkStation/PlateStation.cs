@@ -1,36 +1,48 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlateStation : Workstation
 {
     public GameObject platePrefab;
 
-    public override void Use(GameObject player)
+    void Start()
     {
-        if (player == null) return;
-        Debug.Log("Using Plate Station!");
+        TrySpawnPlate();
+    }
 
-        var combat = player.GetComponent<PlayerCombat>();
-        if (combat == null) return;
-        if (combat.heldItem != null) return;
-        var interact = player.GetComponent<PlayerInteract>();
-        if (interact.holdPoint == null) return;
+    void Update()
+    {
+        // if plate taken → spawn new one
+        if (placePoint.childCount == 0)
+        {
+            TrySpawnPlate();
+        }
+    }
 
-        // spawn plate
+    void TrySpawnPlate()
+    {
+        if (platePrefab == null) return;
+        if (placePoint == null) return;
+        if (placePoint.childCount > 0) return;
+
         GameObject plate = Instantiate(
             platePrefab,
-            interact.holdPoint.position,
-            Quaternion.identity
+            placePoint.position,
+            Quaternion.identity,
+            placePoint
         );
 
-        // give to player
-        combat.heldItem = plate;
-
-        plate.transform.SetParent(interact.holdPoint);
-        plate.transform.localPosition = Vector3.zero;
-        plate.transform.localRotation = Quaternion.identity;
-
-        // disable physics while held
+        // make it behave like placed item
         foreach (var col in plate.GetComponentsInChildren<Collider>())
-            col.enabled = false;
+            col.enabled = true;
+
+        var rb = plate.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
     }
+
+    // not used (station is passive)
+    public override void Use(GameObject player) { }
 }

@@ -27,14 +27,13 @@ Transform:
   m_GameObject: {fileID: 2673227471298701561}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 33203258701241833}
   - {fileID: 6961966678301138872}
-  - {fileID: 6508910052954339859}
-  m_Father: {fileID: 8971892859446630700}
+  m_Father: {fileID: 8503480144387897968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5143514134658607211
 MonoBehaviour:
@@ -43,12 +42,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2673227471298701561}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba2ee050fab03a24e86936c475ba9a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pan
-  contentPoint: {fileID: 6508910052954339859}
+  contentPoint: {fileID: 0}
+  currentItem: {fileID: 0}
+  cookProgress: 0
+  cookTarget: 0
+  cookedPrefab: {fileID: 0}
 --- !u!65 &7708839564865905819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66,11 +69,11 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2935417229826780180
+--- !u!1 &2816553341081967402
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +81,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8971892859446630700}
+  - component: {fileID: 7470122150713922922}
   m_Layer: 8
   m_Name: PlacePoint
   m_TagString: Untagged
@@ -86,52 +89,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8971892859446630700
+--- !u!4 &7470122150713922922
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2935417229826780180}
+  m_GameObject: {fileID: 2816553341081967402}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3809930986077099148}
-  m_Father: {fileID: 8503480144387897968}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4169789109671481416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6508910052954339859}
-  m_Layer: 3
-  m_Name: ContentPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6508910052954339859
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4169789109671481416}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: -0.115}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.588, z: -0.133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3809930986077099148}
+  m_Father: {fileID: 8503480144387897968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4354371033131948935
 GameObject:
@@ -373,7 +344,7 @@ GameObject:
   - component: {fileID: 6506896543497452262}
   - component: {fileID: 934482213544171787}
   - component: {fileID: 8131689832033940198}
-  - component: {fileID: -8529870301360115804}
+  - component: {fileID: 8818399753116722130}
   m_Layer: 8
   m_Name: PanStation
   m_TagString: Untagged
@@ -394,7 +365,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8971892859446630700}
+  - {fileID: 7470122150713922922}
+  - {fileID: 3809930986077099148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6506896543497452262
@@ -475,7 +447,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8529870301360115804
+--- !u!114 &8818399753116722130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -484,8 +456,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9002378184258731292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f8cc4525840a63428add245c8daba98, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba85455d96cf17408159379ff4a1283, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PanStation
-  placePoint: {fileID: 8971892859446630700}
-  pan: {fileID: 5143514134658607211}
+  m_EditorClassIdentifier: Assembly-CSharp::FriedStation
+  placePoint: {fileID: 7470122150713922922}
+  currentItem: {fileID: 0}
+  progressUI: {fileID: 0}

@@ -11,4 +11,7 @@ public class Ingredient : MonoBehaviour
 {
     public IngredientState[] state;
     public bool canPlate = true; // can be put on plate
+    public string ingredientName;
+    public int scoreValue;
+    public bool alreadyScored;
 }

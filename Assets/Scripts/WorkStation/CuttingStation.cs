@@ -3,97 +3,123 @@ using System.Collections;
 
 public class CuttingBoardStation : Workstation
 {
-    public float chopTime = 5f; // time in seconds to chop
-
     public GameObject currentItem;
+    public ProcessingBarUI progressUI;
+
     bool busy = false;
 
+    // =========================
+    // PLACE ITEM (called by PlayerInteract)
+    // =========================
+    public override bool TryPlaceItem(GameObject item, GameObject player)
+    {
+        if (currentItem != null) return false;
+
+        currentItem = item;
+
+        item.transform.SetParent(placePoint);
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.identity;
+
+        // disable physics while on board
+        foreach (var c in item.GetComponentsInChildren<Collider>())
+            c.enabled = false;
+
+        var rb = item.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
+
+        Debug.Log("Ingredient placed on cutting board");
+        return true;
+    }
+
+    // =========================
+    // PRESS F TO CHOP
+    // =========================
     public override void Use(GameObject player)
     {
         Debug.Log("Cutting board used!");
+
         if (busy) return;
+        if (currentItem == null) return;
 
-        var combat = player.GetComponent<PlayerCombat>();
-        var interact = player.GetComponent<PlayerInteract>();
         var controller = player.GetComponent<PlayerController>();
+        if (controller == null) return;
 
-        if (combat == null || interact == null || controller == null) return;
-
-        // ---------- PLACE ITEM ----------
-       /*if (currentItem == null && combat.heldItem != null)
+        var chop = currentItem.GetComponent<Choppable>();
+        if (chop == null)
         {
-            currentItem = combat.heldItem;
-            combat.heldItem = null;
-
-            currentItem.transform.SetParent(placePoint);
-            currentItem.transform.localPosition = Vector3.zero;
-            currentItem.transform.localRotation = Quaternion.identity;
-
+            Debug.Log("Item not choppable");
             return;
-        }*/
-
-        // ---------- START CHOP ----------
-        if (currentItem != null)
-        {
-            var chop = currentItem.GetComponent<Choppable>();
-            if (chop == null) return;
-
-            StartCoroutine(ChopRoutine(player, controller, chop));
         }
+
+        StartCoroutine(ChopRoutine(controller, chop));
     }
 
-    IEnumerator ChopRoutine(GameObject player, PlayerController controller, Choppable chop)
+    IEnumerator ChopRoutine(PlayerController controller, Choppable chop)
     {
         busy = true;
-        float t = 0f;
 
-        while (t < chopTime)
+        float timer = 0f;
+        float chopTime = chop.chopTime;
+
+        if (progressUI) progressUI.Show();
+
+        while (timer < chopTime)
         {
             if (controller.IsMoving)
             {
                 Debug.Log("Chop canceled — player moved");
                 busy = false;
+                if (progressUI) progressUI.Hide();
                 yield break;
             }
 
-            t += Time.deltaTime;
+            timer += Time.deltaTime;
+            if (progressUI) progressUI.SetProgress(timer / chopTime);
+
             yield return null;
         }
 
-        // ---- FINISH ----
-        Vector3 pos = placePoint.position;
+        // FINISH
+        GameObject rawItem = currentItem;
 
         if (chop.choppedResultPrefab != null)
         {
-            Instantiate(chop.choppedResultPrefab, pos, Quaternion.identity, placePoint);
-        }
+            GameObject result = Instantiate(
+                chop.choppedResultPrefab,
+                placePoint.position,
+                Quaternion.identity,
+                placePoint
+            );
 
-        if (chop.destroyOriginal)
-            Destroy(currentItem);
-
-        currentItem = null;
-        busy = false;
-
-        Debug.Log("Chop complete!");
-    }
-
-    void LateUpdate()
-    {
-        if (placePoint == null) return;
-
-        if (placePoint.childCount > 0)
-        {
-            var obj = placePoint.GetChild(0).gameObject;
-            if (currentItem != obj)
-            {
-                currentItem = obj;
-                Debug.Log($"CuttingBoard currentItem set to {obj.name}");
-            }
+            currentItem = result;
         }
         else
         {
             currentItem = null;
         }
+
+        if (chop.destroyOriginal && rawItem)
+            Destroy(rawItem);
+
+        busy = false;
+        if (progressUI) progressUI.Hide();
+
+        Debug.Log("Chop complete!");
     }
 
+    // auto detect item on board
+    void LateUpdate()
+    {
+        if (!placePoint) return;
+
+        if (placePoint.childCount > 0)
+            currentItem = placePoint.GetChild(0).gameObject;
+        else
+            currentItem = null;
+    }
 }

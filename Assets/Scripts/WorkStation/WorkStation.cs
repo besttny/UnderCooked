@@ -1,12 +1,29 @@
 using UnityEngine;
 
-public abstract class Workstation : MonoBehaviour
+public class Workstation : MonoBehaviour
 {
     public Transform placePoint;
 
-    public virtual Transform GetPlacePoint()
+    // =========================
+    // PLACE ITEM INTO STATION
+    // =========================
+    public virtual bool TryPlaceItem(GameObject item, GameObject player)
     {
-        return placePoint != null ? placePoint : transform;
+        return false;
     }
-    public abstract void Use(GameObject player);
+
+    // =========================
+    // INTERACT (PRESS F)
+    // =========================
+    public virtual void Use(GameObject player)
+    {
+    }
+
+    // =========================
+    // GET PLACE POINT
+    // =========================
+    public Transform GetPlacePoint()
+    {
+        return placePoint;
+    }
 }

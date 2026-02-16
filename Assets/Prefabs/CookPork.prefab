@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f622fb0f6cb01874b8d56507a14048c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Choppable
+  chopTime: 3
   choppedResultPrefab: {fileID: 5301659753784147471, guid: 6ea9d0e93e308d04f98e1be820b8775f, type: 3}
   destroyOriginal: 1
 --- !u!114 &1828039409585257398
@@ -310,6 +311,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
   state: 02000000
   canPlate: 1
+  ingredientName: CookPork
+  scoreValue: 8
 --- !u!1 &5667101032197798297
 GameObject:
   m_ObjectHideFlags: 0

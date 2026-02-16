@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Cookable : MonoBehaviour
 {
+    public float cookTime = 5f;
     public GameObject cookedResultPrefab;
-    public float cookTime = 10f;
+    public bool destroyOriginal = true;
 }

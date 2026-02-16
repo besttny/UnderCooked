@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 7657083472839620820}
   - {fileID: 4767044607402381864}
+  - {fileID: 5080987102742433446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2934695383785522835
@@ -47,7 +48,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e56cbc5eea6464bacf8a435840e7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plate
-  stackPoint: {fileID: 4767044607402381864}
+  ingredients: []
+  ingredientVisualPrefabs:
+  - {fileID: 7628751281145226960, guid: 1672062513bba4245a73f8c6c827bef6, type: 3}
+  - {fileID: 5709082320374096000, guid: c589ea18b689610408ccc51c1deb2ecb, type: 3}
+  - {fileID: 8817174658225147579, guid: d8fc775d783d48f4fb7bd07ecb921613, type: 3}
+  - {fileID: 5301659753784147471, guid: ad22344bde75fd042b2bb92aab535260, type: 3}
+  - {fileID: 5301659753784147471, guid: 29521d6843d621349b475ce2a9d1dda1, type: 3}
+  saladPrefab: {fileID: 6152080852521154511, guid: 8d510d15002f1994084e0c9e1ad269ed, type: 3}
+  steakPrefab: {fileID: 6152080852521154511, guid: e0eb724a6c14a3d4a888e0d388423972, type: 3}
+  steakwsaladPrefab: {fileID: 6152080852521154511, guid: 6ec639987b6c6464696c30e56a603941, type: 3}
+  wrapPrefab: {fileID: 6152080852521154511, guid: 22043cd9a7a47ce40a8e03c742562c6d, type: 3}
+  contentPoint: {fileID: 5080987102742433446}
 --- !u!65 &1234190946351560773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -329,3 +341,34 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &8479250000130898598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5080987102742433446}
+  m_Layer: 0
+  m_Name: ContentPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5080987102742433446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8479250000130898598}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.09, y: 0.048, z: -0.029}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1952136289020966108}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

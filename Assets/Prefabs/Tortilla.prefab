@@ -183,3 +183,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
   state: 00000000
   canPlate: 1
+  ingredientName: Tortilla

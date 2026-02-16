@@ -642,6 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f622fb0f6cb01874b8d56507a14048c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Choppable
+  chopTime: 3
   choppedResultPrefab: {fileID: 0}
   destroyOriginal: 1
 --- !u!114 &-2409062075638348837
@@ -658,3 +659,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ingredient
   state: 01000000
   canPlate: 1
+  ingredientName: ChopTomato
+  scoreValue: 3
