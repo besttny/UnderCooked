@@ -28,7 +28,7 @@ public class GridMapBuilder : MonoBehaviour
 
     [Header("Ingredient Spawner Settings")]
     public List<Ingredient> ingredientTypes = new List<Ingredient>();
-    public int maxPerIngredient = 5;
+    public int maxPerIngredient = 3;
     public float spawnDelay = 3.0f;
 
     [Header("Advanced Spawn Control")]
