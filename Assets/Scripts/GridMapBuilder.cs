@@ -72,7 +72,7 @@ public class GridMapBuilder : MonoBehaviour
 
     // lock จุด spawn ว่ามีของอยู่แล้ว
     private readonly Dictionary<Transform, GameObject> pointToItem = new Dictionary<Transform, GameObject>();
-
+    
     void Start()
     {
         // ถ้ายังไม่ build มาก่อน ให้ build ตอนเริ่มเล่น

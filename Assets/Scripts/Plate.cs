@@ -5,6 +5,8 @@ public class Plate : MonoBehaviour
 {
     [Header("Current ingredients on plate")]
     public List<string> ingredients = new List<string>();
+    public int currentDishValue = 0; 
+    public int finalIngredientCount = 0;
 
     [Header("Ingredient visuals (stacking)")]
     public List<GameObject> ingredientVisualPrefabs; // assign in inspector
@@ -41,6 +43,7 @@ public class Plate : MonoBehaviour
             Debug.Log("Already on plate");
             return false;
         }
+        currentDishValue += ingredient.scoreValue;
 
         ingredients.Add(name);
         Destroy(ingredientObj);
@@ -112,10 +115,10 @@ public class Plate : MonoBehaviour
     void CreateDish(GameObject prefab, string dishName)
     {
         Debug.Log("Recipe complete → " + dishName);
+        finalIngredientCount = ingredients.Count;
 
         ingredients.Clear();
 
-        // destroy stacked visuals
         foreach (GameObject v in spawnedVisuals)
             Destroy(v);
 
@@ -123,5 +126,6 @@ public class Plate : MonoBehaviour
 
         if (prefab != null)
             Instantiate(prefab, contentPoint.position, Quaternion.identity, contentPoint);
+        if (finalIngredientCount > 3) currentDishValue += 5;// bonus for 4 ingredients
     }
 }
