@@ -12,10 +12,10 @@ public class CustomerTable : MonoBehaviour
         if (player.heldItem != null)
         {
             GameObject item = player.heldItem;
-            Plate plate = item.GetComponent<Plate>();
+            Plate plate = item.GetComponentInChildren<Plate>();
 
             // Check if it is a valid plate with food
-            if (plate != null && plate.currentDishValue > 0)
+            if (plate != null)
             {
                 int points = plate.currentDishValue;
 

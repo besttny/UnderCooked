@@ -199,6 +199,13 @@ public class PlayerInteract : MonoBehaviour
 
         if (closest != null)
         {
+            // ✅ ถ้าเป็นโต๊ะลูกค้า ให้ Serve เลย
+            CustomerTable table = closest.GetComponentInParent<CustomerTable>();
+            if (table != null)
+            {
+                table.Interact(combat);   // <-- เรียกของเพื่อนคุณตรงนี้
+                return;
+            }
             var station = closest.GetComponentInParent<Workstation>();
 
             // =====================================================

@@ -17,6 +17,9 @@ public class PlayerScore : MonoBehaviour
         else if (input.playerIndex == 1)
             scoreText = GameObject.Find("Player2ScoreText").GetComponent<TextMeshProUGUI>();
 
+        else if (input.playerIndex == 2)
+            scoreText = GameObject.Find("Player3ScoreText").GetComponent<TextMeshProUGUI>();
+
         UpdateScoreUI();
     }
 
@@ -28,7 +31,8 @@ public class PlayerScore : MonoBehaviour
 
     void UpdateScoreUI()
     {
+        PlayerInputBridge input = GetComponent<PlayerInputBridge>();
         if (scoreText != null)
-            scoreText.text = "Score: " + score;
+            scoreText.text = "P"+(input.playerIndex+1)+" Score: " + score;
     }
 }

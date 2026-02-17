@@ -37,7 +37,9 @@ public class PlayerInputBridge : MonoBehaviour
 
     void BindForIndex(int index)
     {
-        string mapName = (index == 0) ? "Player" : "Player2";
+        string mapName = (index == 0) ? "Player"
+                   : (index == 1) ? "Player2"
+                   : "Player3";
 
         map = controls.asset.FindActionMap(mapName, true);
 
@@ -74,7 +76,7 @@ public class PlayerInputBridge : MonoBehaviour
         if (map != null) map.Disable();
 
         map = null;
-        move = dash = interact = attack = null;
+        move = dash = interact = attack = useStation = null;
     }
 
     void HandleMove(InputAction.CallbackContext ctx)
