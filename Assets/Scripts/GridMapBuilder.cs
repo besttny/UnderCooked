@@ -31,6 +31,13 @@ public class GridMapBuilder : MonoBehaviour
     public int maxPerIngredient = 5;
     public float spawnDelay = 3.0f;
 
+    [Header("Scene-placed map (manual)")]
+    public bool useScenePlacedCounters = true;
+    public string counterTag = "Counter";
+
+    private readonly Dictionary<Transform, Transform> spawnPointToCounter = new Dictionary<Transform, Transform>();
+
+
     [Header("Advanced Spawn Control")]
     public int maxTotalItemsOnMap = 12;
     public float minItemSpacing = 0.6f;
@@ -42,9 +49,6 @@ public class GridMapBuilder : MonoBehaviour
 
     [Header("Workstation Types")]
     public List<WorkstationType> workstationTypes = new List<WorkstationType>();
-
-    [Header("Counter Detection")]
-    public LayerMask counterLayerMask;
 
     [System.Serializable]
     public class Ingredient
@@ -75,9 +79,16 @@ public class GridMapBuilder : MonoBehaviour
     
     void Start()
     {
-        // ถ้ายังไม่ build มาก่อน ให้ build ตอนเริ่มเล่น
-        if (counterSpawnPoints.Count == 0 && floorSpawnPoints.Count == 0)
-            BuildMap();
+        if (useScenePlacedCounters)
+        {
+            CollectCounterSpawnPointsFromScene();
+        }
+        else
+        {
+            // โหมดเก่า: สร้างกริดเอง
+            if (counterSpawnPoints.Count == 0 && floorSpawnPoints.Count == 0)
+                BuildMap();
+        }
 
         // spawn ทันที 1 ครั้ง
         CleanupSpawnedLists();
@@ -85,6 +96,54 @@ public class GridMapBuilder : MonoBehaviour
         
         // spawn ตามเวลา
         StartCoroutine(SpawnRoutine());
+    }
+
+    [ContextMenu("Collect Counter Spawn Points From Scene")]
+    public void CollectCounterSpawnPointsFromScene()
+    {
+        Transform genRoot = GetOrCreateGeneratedRoot();
+
+        // ล้าง spawn points เก่า (เฉพาะ SP_ ที่เราสร้าง)
+        for (int i = genRoot.childCount - 1; i >= 0; i--)
+        {
+            var child = genRoot.GetChild(i);
+            if (child.name.StartsWith("SP_"))
+            {
+                if (Application.isPlaying) Destroy(child.gameObject);
+                else DestroyImmediate(child.gameObject);
+            }
+        }
+
+        counterSpawnPoints.Clear();
+        floorSpawnPoints.Clear();
+        pointToItem.Clear();
+        spawnPointToCounter.Clear();
+
+        var counters = GameObject.FindGameObjectsWithTag(counterTag);
+        foreach (var c in counters)
+        {
+            var col = c.GetComponentInChildren<Collider>();
+            if (col == null) continue;
+
+            var sp = new GameObject($"SP_{c.name}").transform;
+            sp.SetParent(genRoot);
+
+            // วาง spawn point ไว้กลางหน้าเคาน์เตอร์ด้านบน
+            sp.position = new Vector3(
+                col.bounds.center.x,
+                col.bounds.max.y + spawnHeightOffset,
+                col.bounds.center.z
+            );
+
+            counterSpawnPoints.Add(sp);
+            spawnPointToCounter[sp] = c.transform;
+        }
+
+        if (counterSpawnPoints.Count == 0)
+            Debug.LogError($"No counters found with Tag '{counterTag}'. Please tag your counters.");
+
+        Debug.Log($"Found counters: {GameObject.FindGameObjectsWithTag(counterTag).Length}, spawnPoints: {counterSpawnPoints.Count}");
+
     }
 
     IEnumerator SpawnRoutine()
@@ -136,46 +195,16 @@ public class GridMapBuilder : MonoBehaviour
         Transform point = GetEmptySpawnPoint();
         if (point == null) return;
 
-        //Vector3 spawnPos = point.position + Vector3.up * spawnHeightOffset;
-        //GameObject newItem = Instantiate(target.prefab, spawnPos, Quaternion.identity);
+        if (!spawnPointToCounter.TryGetValue(point, out Transform counter) || counter == null)
+            return;
 
-        // ✅ บังคับให้ของอยู่ใต้ LevelBuilder/__Generated/Ingredients เสมอ
-        //newItem.transform.SetParent(GetOrCreateIngredientsRoot());
-        Transform counter = FindCounterAtPoint(point.position);
+        GameObject prefab = target.prefab;
 
-        GameObject newItem = Instantiate(target.prefab);
-
-        if (counter != null)
-        {
-            // parent to counter (same as player placement)
-            newItem.transform.SetParent(counter);
-
-            var col = counter.GetComponent<Collider>();
-            float topY = col != null ? col.bounds.max.y : counter.position.y;
-
-            newItem.transform.position = new Vector3(
-                counter.position.x,
-                topY + spawnHeightOffset,
-                counter.position.z
-            );
-        }
-        else
-        {
-            TrySpawnRandomIngredient(); // if no counter, try again
-            return; 
-            //newItem.transform.SetParent(GetOrCreateIngredientsRoot());
-        }
+        // spawn ที่จุด + parent ไปที่ counter
+        GameObject newItem = Instantiate(prefab, point.position, Quaternion.identity, counter);
 
         target.spawnedInstances.Add(newItem);
         pointToItem[point] = newItem;
-    }
-
-
-    Transform FindCounterAtPoint(Vector3 pos)
-    {
-        Collider[] hits = Physics.OverlapSphere(pos, 0.3f, counterLayerMask);
-        if (hits.Length == 0) return null;
-        return hits[0].transform;
     }
 
     Transform GetEmptySpawnPoint()

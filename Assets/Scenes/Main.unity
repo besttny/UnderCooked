@@ -3001,9 +3001,9 @@ GameObject:
   - component: {fileID: 149716864}
   - component: {fileID: 149716863}
   - component: {fileID: 149716862}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_0_6
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6501,7 +6501,7 @@ GameObject:
   - component: {fileID: 286917394}
   m_Layer: 7
   m_Name: Counter_6_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8679,7 +8679,7 @@ GameObject:
   - component: {fileID: 346016041}
   m_Layer: 7
   m_Name: Counter_9_7
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9825,7 +9825,7 @@ GameObject:
   - component: {fileID: 394965255}
   m_Layer: 7
   m_Name: Counter_6_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16222,7 +16222,7 @@ GameObject:
   - component: {fileID: 612729890}
   m_Layer: 7
   m_Name: Counter_9_3
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16577,7 +16577,7 @@ GameObject:
   - component: {fileID: 620666671}
   m_Layer: 7
   m_Name: Counter_9_6
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16908,7 +16908,7 @@ GameObject:
   - component: {fileID: 655560481}
   m_Layer: 7
   m_Name: Counter_0_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18918,9 +18918,9 @@ GameObject:
   - component: {fileID: 739822955}
   - component: {fileID: 739822954}
   - component: {fileID: 739822953}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_9_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20752,9 +20752,9 @@ GameObject:
   - component: {fileID: 813350670}
   - component: {fileID: 813350669}
   - component: {fileID: 813350668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_6_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21682,7 +21682,7 @@ GameObject:
   - component: {fileID: 828281630}
   m_Layer: 0
   m_Name: Counter_0_4
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24353,6 +24353,8 @@ MonoBehaviour:
     spawnedInstances: []
   maxPerIngredient: 5
   spawnDelay: 3
+  useScenePlacedCounters: 1
+  counterTag: Counter
   maxTotalItemsOnMap: 12
   minItemSpacing: 0.6
   spawnHeightOffset: 0.05
@@ -24377,9 +24379,6 @@ MonoBehaviour:
     prefab: {fileID: 2183664588984856754, guid: 8431e1d1befd76640a44cb4342eb0784, type: 3}
   - name: CustomerTable
     prefab: {fileID: 2642042106787128913, guid: 8a358bf4cec28c342992dd4d316e1bbd, type: 3}
-  counterLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
   counterSpawnPoints:
   - {fileID: 1919737009}
   - {fileID: 1635839400}
@@ -25975,7 +25974,7 @@ GameObject:
   - component: {fileID: 992411426}
   m_Layer: 7
   m_Name: Counter_7_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26311,7 +26310,7 @@ GameObject:
   - component: {fileID: 1006345849}
   m_Layer: 7
   m_Name: Counter_0_3
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27777,7 +27776,7 @@ GameObject:
   - component: {fileID: 1095091048}
   m_Layer: 7
   m_Name: Counter_7_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28503,9 +28502,9 @@ GameObject:
   - component: {fileID: 1147627287}
   - component: {fileID: 1147627286}
   - component: {fileID: 1147627285}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_3_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28870,9 +28869,9 @@ GameObject:
   - component: {fileID: 1171169156}
   - component: {fileID: 1171169155}
   - component: {fileID: 1171169154}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_6_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29685,9 +29684,9 @@ GameObject:
   - component: {fileID: 1207773640}
   - component: {fileID: 1207773639}
   - component: {fileID: 1207773638}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_7_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33347,9 +33346,9 @@ GameObject:
   - component: {fileID: 1391191407}
   - component: {fileID: 1391191406}
   - component: {fileID: 1391191405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_3_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35158,7 +35157,7 @@ GameObject:
   - component: {fileID: 1444091029}
   m_Layer: 7
   m_Name: Counter_3_9 (7)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35606,7 +35605,7 @@ GameObject:
   - component: {fileID: 1456935960}
   m_Layer: 7
   m_Name: Counter_3_9 (5)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37111,7 +37110,7 @@ GameObject:
   - component: {fileID: 1541325364}
   m_Layer: 7
   m_Name: Counter_3_9 (8)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38040,9 +38039,9 @@ GameObject:
   - component: {fileID: 1592098066}
   - component: {fileID: 1592098065}
   - component: {fileID: 1592098064}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_2_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38824,9 +38823,9 @@ GameObject:
   - component: {fileID: 1615431426}
   - component: {fileID: 1615431425}
   - component: {fileID: 1615431424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_9_3
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39379,9 +39378,9 @@ GameObject:
   - component: {fileID: 1634439126}
   - component: {fileID: 1634439125}
   - component: {fileID: 1634439124}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_7_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39698,7 +39697,7 @@ GameObject:
   - component: {fileID: 1649111640}
   m_Layer: 7
   m_Name: Counter_3_9 (4)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39810,7 +39809,7 @@ GameObject:
   - component: {fileID: 1650942771}
   m_Layer: 7
   m_Name: Counter_2_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40594,7 +40593,7 @@ GameObject:
   - component: {fileID: 1684242126}
   m_Layer: 7
   m_Name: Counter_3_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40947,9 +40946,9 @@ GameObject:
   - component: {fileID: 1694754715}
   - component: {fileID: 1694754714}
   - component: {fileID: 1694754713}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_0_7
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41862,9 +41861,9 @@ GameObject:
   - component: {fileID: 1752934630}
   - component: {fileID: 1752934629}
   - component: {fileID: 1752934628}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_9_6
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42481,7 +42480,7 @@ GameObject:
   - component: {fileID: 1793232914}
   m_Layer: 7
   m_Name: Counter_9_2
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43188,7 +43187,7 @@ GameObject:
   - component: {fileID: 1813450754}
   m_Layer: 7
   m_Name: Counter_3_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43495,9 +43494,9 @@ GameObject:
   - component: {fileID: 1839862697}
   - component: {fileID: 1839862696}
   - component: {fileID: 1839862695}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_1_0
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43864,7 +43863,7 @@ GameObject:
   - component: {fileID: 1853487382}
   m_Layer: 7
   m_Name: Counter_2_9
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45498,7 +45497,7 @@ GameObject:
   - component: {fileID: 1911289454}
   m_Layer: 7
   m_Name: Counter_0_6
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49169,7 +49168,7 @@ GameObject:
   - component: {fileID: 2067104686}
   m_Layer: 7
   m_Name: Counter_3_9 (1)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49281,7 +49280,7 @@ GameObject:
   - component: {fileID: 2075098813}
   m_Layer: 7
   m_Name: Counter_3_9 (2)
-  m_TagString: Untagged
+  m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
