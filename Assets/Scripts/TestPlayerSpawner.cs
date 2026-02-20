@@ -4,9 +4,9 @@ public class TestPlayerSpawner : MonoBehaviour
 {
     public GameObject playerPrefab;
 
-    public Vector3 p1Spawn = new Vector3(4.5f, 0.6f, 4.5f);
-    public Vector3 p2Spawn = new Vector3(6.0f, 0.6f, 4.5f);
-    public Vector3 p3Spawn = new Vector3(5.25f, 0.6f, 6.0f);
+    public Vector3 p1Spawn = new Vector3(4f, 0.6f, 4.5f);
+    public Vector3 p2Spawn = new Vector3(6f, 0.6f, 4.5f);
+    public Vector3 p3Spawn = new Vector3(5f, 0.6f, 4.5f);
 
     void Start()
     {

@@ -50570,7 +50570,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1379789507939124930, guid: a6bed7fc0772b0248a56597df4aa6e0a, type: 3}
   p1Spawn: {x: 4.5, y: 0.6, z: 4.5}
   p2Spawn: {x: 6, y: 0.6, z: 4.5}
-  p3Spawn: {x: 5.25, y: 0.6, z: 6}
+  p3Spawn: {x: 5.25, y: 0.6, z: 7.5}
 --- !u!4 &2106513607
 Transform:
   m_ObjectHideFlags: 0
