@@ -11,6 +11,17 @@ public class FriedStation : Workstation
     // =========================
     // PLACE ITEM → AUTO COOK
     // =========================
+
+    void LateUpdate()
+    {
+        if (!placePoint) return;
+
+        if (placePoint.childCount > 0)
+            currentItem = placePoint.GetChild(0).gameObject;
+        else
+            currentItem = null;
+    }
+    
     public override bool TryPlaceItem(GameObject item, GameObject player)
     {
         if (currentItem != null) return false;

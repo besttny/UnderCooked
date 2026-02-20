@@ -12,16 +12,26 @@ public class TestPlayerSpawner : MonoBehaviour
     {
         if (playerPrefab == null) return;
 
-        var p1 = Instantiate(playerPrefab, p1Spawn, Quaternion.identity);
-        p1.name = "Player1";
-        p1.GetComponent<PlayerInputBridge>()?.SetPlayerIndex(0);
+        SpawnPlayer("Player1", p1Spawn, 0, Color.red);
+        SpawnPlayer("Player2", p2Spawn, 1, Color.cyan);
+        SpawnPlayer("Player3", p3Spawn, 2, new Color(0.6f, 0f, 1f)); // purple
+    }
 
-        var p2 = Instantiate(playerPrefab, p2Spawn, Quaternion.identity);
-        p2.name = "Player2";
-        p2.GetComponent<PlayerInputBridge>()?.SetPlayerIndex(1);
+    void SpawnPlayer(string name, Vector3 pos, int index, Color color)
+    {
+        var p = Instantiate(playerPrefab, pos, Quaternion.identity);
+        p.name = name;
 
-        var p3 = Instantiate(playerPrefab, p3Spawn, Quaternion.identity);
-        p3.name = "Player3";
-        p3.GetComponent<PlayerInputBridge>()?.SetPlayerIndex(2);
+        p.GetComponent<PlayerInputBridge>()?.SetPlayerIndex(index);
+
+        // ⭐ Find the indicator pyramid mesh
+        var renderer = p.transform
+            .Find("Indicator/Pyramid/default")
+            ?.GetComponent<MeshRenderer>();
+
+        if (renderer != null)
+        {
+            renderer.material.color = color;
+        }
     }
 }

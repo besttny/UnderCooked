@@ -50,6 +50,51 @@ public class PlayerInteract : MonoBehaviour
     // =====================================================
     void TryPickup()
     {
+        // =====================================================
+        // ⭐ 1. CHECK WORKSTATION FIRST (PAN, CUTTING BOARD, etc.)
+        // =====================================================
+        var counterHits = Physics.OverlapSphere(transform.position, interactRadius, counterLayer);
+
+        Collider closestCounter = null;
+        float bestCounterDist = float.MaxValue;
+
+        foreach (var h in counterHits)
+        {
+            float d = Vector3.Distance(transform.position, h.transform.position);
+            if (d < bestCounterDist)
+            {
+                bestCounterDist = d;
+                closestCounter = h;
+            }
+        }
+
+        if (closestCounter != null)
+        {
+            Workstation station = closestCounter.GetComponentInParent<Workstation>();
+
+            if (station != null && station.HasItem())
+            {
+                GameObject item = station.TakeItem();
+
+                if (item != null)
+                {
+                    Debug.Log("Picked up from station: " + item.name);
+
+                    combat.heldItem = item;
+                    SetItemPhysics(item, true);
+
+                    item.transform.SetParent(holdPoint);
+                    item.transform.localPosition = Vector3.zero;
+                    item.transform.localRotation = Quaternion.identity;
+
+                    return; // STOP
+                }
+            }
+        }
+
+        // =====================================================
+        // ⭐ 2. NORMAL ITEM PICKUP
+        // =====================================================
         var hits = Physics.OverlapSphere(transform.position, interactRadius, itemLayer);
 
         if (hits.Length == 0)
@@ -76,7 +121,7 @@ public class PlayerInteract : MonoBehaviour
         if (closest == null) return;
 
         // =====================================================
-        // ⭐ PLATE INTERACTION FIRST
+        // ⭐ PLATE INTERACTION
         // =====================================================
         if (combat.heldItem != null)
         {
@@ -93,7 +138,7 @@ public class PlayerInteract : MonoBehaviour
                     if (added)
                     {
                         Debug.Log("Added ingredient to plate");
-                        return; // STOP pickup
+                        return;
                     }
                 }
             }
@@ -103,16 +148,16 @@ public class PlayerInteract : MonoBehaviour
         // ⭐ NORMAL PICKUP
         // =====================================================
         Debug.Log("Picked up: " + closest.name);
-        // ⭐⭐⭐ ADD THIS BLOCK ⭐⭐⭐
+
         Ingredient ing = closest.GetComponent<Ingredient>();
         if (ing != null && ing.canPlate && !ing.alreadyScored)
         {
             PlayerScore ps = GetComponent<PlayerScore>();
             if (ps != null)
                 ps.AddScore(ing.scoreValue);
+
             ing.alreadyScored = true;
         }
-        // ⭐⭐⭐ END BLOCK ⭐⭐⭐
 
         combat.heldItem = closest;
         SetItemPhysics(closest, true);
@@ -120,17 +165,10 @@ public class PlayerInteract : MonoBehaviour
         closest.transform.SetParent(holdPoint);
         closest.transform.localPosition = Vector3.zero;
 
-        // apply special rotation for plate
         if (closest.GetComponent<Plate>() != null)
-        {
-            // rotate plate flat
             closest.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-        }
         else
-        {
-            // normal items
             closest.transform.localRotation = Quaternion.identity;
-        }
     }
 
     // =====================================================

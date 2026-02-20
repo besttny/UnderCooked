@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cookable
   cookTime: 10
-  cookedResultPrefab: {fileID: 0}
+  cookedResultPrefab: {fileID: 5301659753784147471}
   destroyOriginal: 1
 --- !u!114 &-1330193990453361944
 MonoBehaviour:
@@ -670,6 +670,7 @@ MonoBehaviour:
   canPlate: 1
   ingredientName: CookChopPork
   scoreValue: 12
+  alreadyScored: 0
 --- !u!1 &6219703749274744894
 GameObject:
   m_ObjectHideFlags: 0
