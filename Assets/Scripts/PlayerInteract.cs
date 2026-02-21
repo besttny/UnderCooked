@@ -87,6 +87,17 @@ public class PlayerInteract : MonoBehaviour
                     item.transform.localPosition = Vector3.zero;
                     item.transform.localRotation = Quaternion.identity;
 
+                    //change add score to here
+                    Ingredient workIng = item.GetComponent<Ingredient>();
+                    if (workIng != null && workIng.canPlate && !workIng.alreadyScored)
+                    {
+                        PlayerScore ps = GetComponent<PlayerScore>();
+                        if (ps != null)
+                            ps.AddScore(workIng.scoreValue);
+
+                        workIng.alreadyScored = true;
+                    }
+
                     return; // STOP
                 }
             }

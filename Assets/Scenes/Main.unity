@@ -16821,7 +16821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
   placePoint: {fileID: 721348386}
-  currentItem: {fileID: 0}
   progressUI: {fileID: 1262785603}
 --- !u!65 &614922519
 BoxCollider:
@@ -22022,7 +22021,7 @@ GameObject:
   - component: {fileID: 828281632}
   - component: {fileID: 828281631}
   - component: {fileID: 828281630}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_0_4
   m_TagString: Counter
   m_Icon: {fileID: 0}
@@ -32311,7 +32310,7 @@ GameObject:
   - component: {fileID: 1321638186}
   - component: {fileID: 1321638185}
   - component: {fileID: 1321638184}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Counter_0_4 (1)
   m_TagString: Counter
   m_Icon: {fileID: 0}
@@ -33084,7 +33083,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
   placePoint: {fileID: 1524436559}
-  currentItem: {fileID: 0}
   progressUI: {fileID: 968200516}
 --- !u!65 &1360375968
 BoxCollider:
@@ -41535,7 +41533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
   placePoint: {fileID: 1245878905}
-  currentItem: {fileID: 0}
   progressUI: {fileID: 2005459271}
 --- !u!65 &1685099991
 BoxCollider:
@@ -50893,7 +50890,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
   placePoint: {fileID: 1862676435}
-  currentItem: {fileID: 0}
   progressUI: {fileID: 1582202119}
 --- !u!65 &2114692063
 BoxCollider:

@@ -466,7 +466,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4449734748764427933}
   - component: {fileID: 5225261378799876674}
-  - component: {fileID: -886092153250585138}
   - component: {fileID: 8846868391012743665}
   m_Layer: 3
   m_Name: ChopLettuce
@@ -516,21 +515,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-886092153250585138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5709082320374096000}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f622fb0f6cb01874b8d56507a14048c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Choppable
-  chopTime: 3
-  choppedResultPrefab: {fileID: 0}
-  destroyOriginal: 1
 --- !u!114 &8846868391012743665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +531,7 @@ MonoBehaviour:
   canPlate: 1
   ingredientName: ChopLettuce
   scoreValue: 3
+  alreadyScored: 0
 --- !u!1 &5928696298503308846
 GameObject:
   m_ObjectHideFlags: 0

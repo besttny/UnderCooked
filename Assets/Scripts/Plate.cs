@@ -69,6 +69,9 @@ public class Plate : MonoBehaviour
 
                 GameObject v = Instantiate(prefab, pos, Quaternion.identity, contentPoint);
                 spawnedVisuals.Add(v);
+                //turn off physics on visuals
+                foreach (var c in v.GetComponentsInChildren<Collider>())
+                    c.enabled = false;
                 return;
             }
         }

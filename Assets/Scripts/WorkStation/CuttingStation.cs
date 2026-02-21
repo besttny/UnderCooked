@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CuttingBoardStation : Workstation
 {
-    public GameObject currentItem;
+    //public GameObject currentItem; 
     public ProcessingBarUI progressUI;
 
     bool busy = false;
@@ -13,6 +13,8 @@ public class CuttingBoardStation : Workstation
     // =========================
     public override bool TryPlaceItem(GameObject item, GameObject player)
     {
+        var chopable = item.GetComponent<Choppable>();
+
         if (currentItem != null) return false;
 
         currentItem = item;
@@ -22,9 +24,10 @@ public class CuttingBoardStation : Workstation
         item.transform.localRotation = Quaternion.identity;
 
         // disable physics while on board
-        foreach (var c in item.GetComponentsInChildren<Collider>())
-            c.enabled = false;
-
+        if(chopable != null){
+             foreach (var c in item.GetComponentsInChildren<Collider>())
+                c.enabled = false;
+        }
         var rb = item.GetComponent<Rigidbody>();
         if (rb)
         {

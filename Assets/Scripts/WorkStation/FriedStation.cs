@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FriedStation : Workstation
 {
-    public GameObject currentItem;
+    //public GameObject currentItem;
     public ProcessingBarUI progressUI;
 
     bool busy = false;
@@ -32,9 +32,13 @@ public class FriedStation : Workstation
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
 
+        var cookable = item.GetComponent<Cookable>();
+
         // disable physics while cooking
-        foreach (var c in item.GetComponentsInChildren<Collider>())
-            c.enabled = false;
+        if(cookable != null){
+            foreach (var c in item.GetComponentsInChildren<Collider>())
+                c.enabled = false;
+        }
 
         var rb = item.GetComponent<Rigidbody>();
         if (rb)
@@ -45,7 +49,6 @@ public class FriedStation : Workstation
 
         Debug.Log("Item placed → auto cooking");
 
-        var cookable = item.GetComponent<Cookable>();
         if (cookable != null)
             StartCoroutine(CookRoutine(cookable));
         else
@@ -124,5 +127,16 @@ public class FriedStation : Workstation
         if (progressUI) progressUI.Hide();
 
         Debug.Log("Cooking complete!");
+    }
+
+    public override GameObject TakeItem()
+    {
+        if (currentItem == null) return null;
+        if (busy) return null;
+
+        GameObject item = currentItem;
+        currentItem = null;
+
+        return item;
     }
 }
